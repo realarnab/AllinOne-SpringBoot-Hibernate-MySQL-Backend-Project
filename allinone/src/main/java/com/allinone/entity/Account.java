@@ -20,6 +20,7 @@ public class Account {
     @Column(name = "account_number",nullable = false,unique = true)
     private String accountNumber;
     private Double balance;
+    private String type;
 
     @PrePersist
     public void prePersist() {
@@ -29,6 +30,6 @@ public class Account {
     private String generateAccountNumber() {
         String prefix = "ACC";
         String suffix = String.format("%09d", (int)(Math.random() * 1000000000));
-        return prefix + suffix;
+        return prefix +" "+ suffix;
     }
 }

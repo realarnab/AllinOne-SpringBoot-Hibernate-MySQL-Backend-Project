@@ -23,7 +23,6 @@ public class User {
     private String email;
     private String username;
     private String password;
-    private String type;
 
     @Column(name = "user_role",nullable = false)
     private String userRole;
