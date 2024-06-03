@@ -1,2 +1,7 @@
-package com.allinone.service;public class UserService {
+package com.allinone.service;
+
+import com.allinone.payload.UserDto;
+
+public interface UserService {
+    UserDto createUser(UserDto userDto);
 }
