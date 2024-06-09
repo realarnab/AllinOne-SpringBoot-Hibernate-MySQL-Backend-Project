@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,6 +45,12 @@ public class UserServiceImpl implements UserService {
     public List<UserDto> getAll() {
         List<User> users = userRepository.findAll();
         return users.stream().map((element) -> modelMapper.map(element, UserDto.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public UserDto getUserById(long id) {
+        User user = userRepository.findById(id).orElseThrow();
+        return mapToDto(user);
     }
 
     public UserDto mapToDto(User user){
