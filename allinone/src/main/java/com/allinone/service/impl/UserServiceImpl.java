@@ -4,9 +4,13 @@ import com.allinone.entity.User;
 import com.allinone.payload.UserDto;
 import com.allinone.repository.UserRepository;
 import com.allinone.service.UserService;
+import com.fasterxml.jackson.core.PrettyPrinter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -34,6 +38,12 @@ public class UserServiceImpl implements UserService {
 //        userDto.setUserRole(saved.getUserRole());
         UserDto dto = mapToDto(saved);
         return dto;
+    }
+
+    @Override
+    public List<UserDto> getAll() {
+        List<User> users = userRepository.findAll();
+        return users.stream().map((element) -> modelMapper.map(element, UserDto.class)).collect(Collectors.toList());
     }
 
     public UserDto mapToDto(User user){
