@@ -1,2 +1,17 @@
-package com.allinone.payload;public class AccountDto {
+package com.allinone.payload;
+
+import jakarta.persistence.Entity;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+public class AccountDto {
+    private String accountNumber;
+    private Double balance;
+    private String type;
 }
