@@ -1,2 +1,32 @@
-package com.allinone.service.impl;public class AccountServiceImpl {
+package com.allinone.service.impl;
+
+import com.allinone.entity.Account;
+import com.allinone.payload.AccountDto;
+import com.allinone.repository.AccountRepository;
+import com.allinone.service.AccountService;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AccountServiceImpl implements AccountService {
+
+    @Autowired
+    private AccountRepository accountRepository;
+    @Autowired
+    private ModelMapper modelMapper;
+    @Override
+    public AccountDto createNewAccount(AccountDto accountDto) {
+        Account account = mapToEntity(accountDto);
+        Account saved = accountRepository.save(account);
+        return mapToDto(saved);
+    }
+
+    public AccountDto mapToDto(Account account){
+       return modelMapper.map(account,AccountDto.class);
+    }
+
+    public Account mapToEntity(AccountDto dto){
+        return modelMapper.map(dto,Account.class);
+    }
 }
