@@ -22,6 +22,10 @@ public class Account {
     private Double balance;
     private String type;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id",nullable = false)
+    private User user;
+
     @PrePersist
     public void prePersist() {
         this.accountNumber = generateAccountNumber();
