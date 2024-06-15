@@ -1,5 +1,6 @@
 package com.allinone.payload;
 
+import com.allinone.entity.Account;
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,4 +19,5 @@ public class UserDto {
     private String username;
     private String password;
     private String userRole;
+    private Account accounts;
 }
