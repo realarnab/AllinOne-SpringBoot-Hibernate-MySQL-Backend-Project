@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "users")
 @Getter
@@ -26,4 +28,7 @@ public class User {
 
     @Column(name = "user_role",nullable = false)
     private String userRole;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Account> accounts;
 }
