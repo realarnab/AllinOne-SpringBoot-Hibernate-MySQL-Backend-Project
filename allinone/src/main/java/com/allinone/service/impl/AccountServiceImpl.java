@@ -8,6 +8,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class AccountServiceImpl implements AccountService {
 
@@ -20,6 +23,12 @@ public class AccountServiceImpl implements AccountService {
         Account account = mapToEntity(accountDto);
         Account saved = accountRepository.save(account);
         return mapToDto(saved);
+    }
+
+    @Override
+    public List<AccountDto> getAllAccounts() {
+        List<Account> all = accountRepository.findAll();
+        return all.stream().map((element) -> modelMapper.map(element, AccountDto.class)).collect(Collectors.toList());
     }
 
     public AccountDto mapToDto(Account account){
