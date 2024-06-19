@@ -6,10 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/api/v1/accounts")
@@ -21,5 +20,11 @@ public class AccountController {
     public ResponseEntity<AccountDto> createAccount(@RequestBody AccountDto accountDto){
         AccountDto newAccount = accountService.createNewAccount(accountDto);
         return new ResponseEntity<>(newAccount, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<List<AccountDto>> getAll(){
+        List<AccountDto> allAccounts = accountService.getAllAccounts();
+        return new ResponseEntity<>(allAccounts,HttpStatus.OK);
     }
 }
