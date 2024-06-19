@@ -1,6 +1,7 @@
 package com.allinone.payload;
 
 import com.allinone.entity.Account;
+import com.allinone.entity.User;
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
