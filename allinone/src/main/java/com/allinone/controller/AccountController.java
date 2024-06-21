@@ -1,5 +1,6 @@
 package com.allinone.controller;
 
+import com.allinone.payload.AccountConfirmationDto;
 import com.allinone.payload.AccountDto;
 import com.allinone.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ public class AccountController {
     private AccountService accountService;
 
     @PostMapping("/new")
-    public ResponseEntity<AccountDto> createAccount(@RequestBody AccountDto accountDto){
-        AccountDto newAccount = accountService.createNewAccount(accountDto);
+    public ResponseEntity<AccountConfirmationDto> createAccount(@RequestBody AccountDto accountDto){
+        AccountConfirmationDto newAccount = accountService.createNewAccount(accountDto);
         return new ResponseEntity<>(newAccount, HttpStatus.CREATED);
     }
 
