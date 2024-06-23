@@ -59,6 +59,17 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 
+    @Override
+    public UserDto updateUser(long id, UserDto dto) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("user not found"));
+        int update = userRepository.update(id, dto.getName(), dto.getEmail());
+        if (update==0){
+            throw new RuntimeException("Something went wrong");
+        } else {
+            return dto;
+        }
+    }
+
     public UserDto mapToDto(User user){
         return modelMapper.map(user, UserDto.class);
     }
