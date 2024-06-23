@@ -53,6 +53,12 @@ public class UserServiceImpl implements UserService {
         return mapToDto(user);
     }
 
+    @Override
+    public void deleteUser(long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("user not found"));
+        userRepository.deleteById(id);
+    }
+
     public UserDto mapToDto(User user){
         return modelMapper.map(user, UserDto.class);
     }
