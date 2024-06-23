@@ -2,6 +2,7 @@ package com.allinone.controller;
 
 import com.allinone.payload.UserDto;
 import com.allinone.service.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,5 +42,12 @@ public class UserController {
     public ResponseEntity<?> delete(@PathVariable long id){
         userService.deleteUser(id);
         return new ResponseEntity<>("User deleted successfully",HttpStatus.OK);
+    }
+
+    @PutMapping("/update/{id}")
+    @Transactional
+    public ResponseEntity<UserDto> update(@RequestBody UserDto dto,@PathVariable long id){
+        UserDto userDto = userService.updateUser(id, dto);
+        return new ResponseEntity<>(userDto,HttpStatus.OK);
     }
 }
