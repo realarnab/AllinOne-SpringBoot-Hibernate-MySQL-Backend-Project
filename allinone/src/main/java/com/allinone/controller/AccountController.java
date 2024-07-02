@@ -28,4 +28,10 @@ public class AccountController {
         List<AccountDto> allAccounts = accountService.getAllAccounts();
         return new ResponseEntity<>(allAccounts,HttpStatus.OK);
     }
+
+    @GetMapping("/byId/{id}")
+    public ResponseEntity<AccountDto> getAccount(@PathVariable long id){
+        AccountDto accountById = accountService.getAccountById(id);
+        return new ResponseEntity<>(accountById,HttpStatus.OK);
+    }
 }
