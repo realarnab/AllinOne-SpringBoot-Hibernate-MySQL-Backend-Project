@@ -1,6 +1,5 @@
 package com.allinone.service;
 
-import com.allinone.entity.Account;
 import com.allinone.payload.AccountConfirmationDto;
 import com.allinone.payload.AccountDto;
 
@@ -11,4 +10,6 @@ public interface AccountService {
     AccountConfirmationDto createNewAccount(AccountDto accountDto);
 
     List<AccountDto> getAllAccounts();
+
+    AccountDto getAccountById(long id);
 }

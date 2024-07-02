@@ -32,6 +32,17 @@ public class AccountServiceImpl implements AccountService {
         return all.stream().map((element) -> modelMapper.map(element, AccountDto.class)).collect(Collectors.toList());
     }
 
+    @Override
+    public AccountDto getAccountById(long id) {
+        Account account = accountRepository.findById(id).orElseThrow(() -> new RuntimeException("Account not found"));
+        AccountDto dto=new AccountDto();
+        dto.setAccountNumber(account.getAccountNumber());
+        dto.setType(account.getType());
+        dto.setUser(account.getUser());
+
+        return dto;
+    }
+
     public AccountConfirmationDto mapToDto(Account account){
        return modelMapper.map(account,AccountConfirmationDto.class);
     }
@@ -39,4 +50,6 @@ public class AccountServiceImpl implements AccountService {
     public Account mapToEntity(AccountDto dto){
         return modelMapper.map(dto,Account.class);
     }
+
+
 }
