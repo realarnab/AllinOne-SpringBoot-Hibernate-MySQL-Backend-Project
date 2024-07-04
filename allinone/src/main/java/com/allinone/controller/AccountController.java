@@ -1,5 +1,6 @@
 package com.allinone.controller;
 
+import com.allinone.exception.AccountNotFoundException;
 import com.allinone.payload.AccountConfirmationDto;
 import com.allinone.payload.AccountDto;
 import com.allinone.service.AccountService;
@@ -30,7 +31,7 @@ public class AccountController {
     }
 
     @GetMapping("/byId/{id}")
-    public ResponseEntity<AccountDto> getAccount(@PathVariable long id){
+    public ResponseEntity<AccountDto> getAccount(@PathVariable long id) throws AccountNotFoundException {
         AccountDto accountById = accountService.getAccountById(id);
         return new ResponseEntity<>(accountById,HttpStatus.OK);
     }
