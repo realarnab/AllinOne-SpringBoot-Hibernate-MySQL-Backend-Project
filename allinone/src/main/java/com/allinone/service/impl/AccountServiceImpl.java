@@ -1,6 +1,7 @@
 package com.allinone.service.impl;
 
 import com.allinone.entity.Account;
+import com.allinone.exception.AccountNotFoundException;
 import com.allinone.payload.AccountConfirmationDto;
 import com.allinone.payload.AccountDto;
 import com.allinone.repository.AccountRepository;
@@ -33,14 +34,14 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountDto getAccountById(long id) {
-        Account account = accountRepository.findById(id).orElseThrow(() -> new RuntimeException("Account not found"));
-        AccountDto dto=new AccountDto();
-        dto.setAccountNumber(account.getAccountNumber());
-        dto.setType(account.getType());
-        dto.setUser(account.getUser());
-
-        return dto;
+    public AccountDto getAccountById(long id) throws AccountNotFoundException {
+        Account account = accountRepository.findById(id).orElseThrow(() -> new AccountNotFoundException("Account not found"));
+//        AccountDto dto=new AccountDto();
+//        dto.setAccountNumber(account.getAccountNumber());
+//        dto.setType(account.getType());
+//        dto.setUser(account.getUser());
+        return mapToAccountDto(account);
+        //return dto;
     }
 
     public AccountConfirmationDto mapToDto(Account account){
@@ -52,4 +53,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
 
+    public AccountDto mapToAccountDto(Account account){
+        return modelMapper.map(account,AccountDto.class);
+    }
 }

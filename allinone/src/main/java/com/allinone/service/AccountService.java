@@ -1,5 +1,6 @@
 package com.allinone.service;
 
+import com.allinone.exception.AccountNotFoundException;
 import com.allinone.payload.AccountConfirmationDto;
 import com.allinone.payload.AccountDto;
 
@@ -11,5 +12,5 @@ public interface AccountService {
 
     List<AccountDto> getAllAccounts();
 
-    AccountDto getAccountById(long id);
+    AccountDto getAccountById(long id) throws AccountNotFoundException;
 }
