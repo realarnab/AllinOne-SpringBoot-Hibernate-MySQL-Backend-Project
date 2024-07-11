@@ -1,5 +1,6 @@
 package com.allinone.service;
 
+import com.allinone.payload.LoginDto;
 import com.allinone.payload.UserDto;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface UserService {
     void deleteUser(long id);
 
     UserDto updateUser(long id, UserDto dto);
+
+    public String verifyLogin(LoginDto loginDto);
 }

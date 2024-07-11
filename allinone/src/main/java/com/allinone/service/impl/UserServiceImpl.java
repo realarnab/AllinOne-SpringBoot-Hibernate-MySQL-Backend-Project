@@ -1,12 +1,15 @@
 package com.allinone.service.impl;
 
 import com.allinone.entity.User;
+import com.allinone.payload.LoginDto;
 import com.allinone.payload.UserDto;
 import com.allinone.repository.UserRepository;
+import com.allinone.service.JWTService;
 import com.allinone.service.UserService;
 import com.fasterxml.jackson.core.PrettyPrinter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +22,9 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private JWTService jwtService;
     @Override
     public UserDto createUser(UserDto userDto) {
 //        User user=new User();
@@ -68,6 +74,21 @@ public class UserServiceImpl implements UserService {
         } else {
             return dto;
         }
+    }
+
+    @Override
+    public String verifyLogin(LoginDto loginDto) {
+        Optional<User> opUser = userRepository.findByUsername(loginDto.getUsername());
+
+        if (opUser.isPresent()){
+            User user = opUser.get();
+            boolean check = BCrypt.checkpw(loginDto.getPassword(), user.getPassword());
+
+            if (check){
+                return jwtService.generateToken(user);
+            }
+        }
+        return null;
     }
 
     public UserDto mapToDto(User user){
