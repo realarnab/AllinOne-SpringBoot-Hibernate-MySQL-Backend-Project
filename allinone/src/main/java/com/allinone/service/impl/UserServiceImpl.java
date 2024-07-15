@@ -22,18 +22,17 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private ModelMapper modelMapper;
-
     @Autowired
     private JWTService jwtService;
     @Override
     public UserDto createUser(UserDto userDto) {
-//        User user=new User();
-//        user.setName(userDto.getName());
-//        user.setEmail(userDto.getEmail());
-//        user.setUsername(userDto.getUsername());
-//        user.setPassword(userDto.getPassword());
-//        user.setUserRole(userDto.getUserRole());
-        User user = mapToEntity(userDto);
+        User user=new User();
+        user.setName(userDto.getName());
+        user.setEmail(userDto.getEmail());
+        user.setUsername(userDto.getUsername());
+        user.setPassword(BCrypt.hashpw(userDto.getPassword(),BCrypt.gensalt(10)));
+        user.setUserRole(userDto.getUserRole());
+//        User user = mapToEntity(userDto);
 
         User saved = userRepository.save(user);
 
