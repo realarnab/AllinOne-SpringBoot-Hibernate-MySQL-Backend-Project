@@ -16,8 +16,8 @@ public class SecurityConfig {
         http.csrf().disable().cors().disable();
         http.addFilterBefore(jwtRequestFilter, AuthorizationFilter.class);
         http.authorizeHttpRequests()
-                .requestMatchers("/api/v1/users/**","/api/v1/accounts/**").permitAll()
-                .requestMatchers("/api/v1/auth/login").hasAnyRole("ADMIN","USER")
+                .requestMatchers("/api/v1/users/create","/api/v1/auth/login").permitAll()
+                .requestMatchers("/api/v1/accounts/**").hasAnyRole("ADMIN","USER")
                 .anyRequest().authenticated();
         return http.build();
 
